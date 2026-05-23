@@ -1,0 +1,12 @@
+DANH SÁCH CÁC BIẾN ĐÃ LOẠI BỎ KHỎI TẬP HUẤN LUYỆN:
+==================================================
+
+1. Các biến bị loại do có độ tương quan quá cao (> 0.95) gây đa cộng tuyến:
+   - Bỏ 'number_vmail_messages' (tương quan = 0.9545 với 'voice_mail_plan')
+   - Bỏ 'total_day_charge' (tương quan = 1.0000 với 'total_day_minutes')
+   - Bỏ 'total_eve_charge' (tương quan = 1.0000 với 'total_eve_minutes')
+   - Bỏ 'total_night_charge' (tương quan = 1.0000 với 'total_night_minutes')
+   - Bỏ 'total_intl_charge' (tương quan = 1.0000 với 'total_intl_minutes')
+
+2. Biến mục tiêu (Target variable) được tách riêng để dự đoán:
+   - churn
