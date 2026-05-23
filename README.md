@@ -1,9 +1,8 @@
 # Phân Tích Thực Nghiệm Mô Hình Machine Learning: mlc_churn
 
-Dự án thực hiện quy trình thiết kế và phân tích thực nghiệm (Design of Experiments - DoE) nhằm đánh giá hiệu năng của mô hình Random Forest trên bộ dữ liệu `mlc_churn`. Mục tiêu là xác định ảnh hưởng của số lượng fold (k) và độ sâu cây (max_depth) đến độ đo F1-Score.
+Dự án thực hiện quy trình thiết kế và phân tích thực nghiệm nhằm đánh giá hiệu năng của mô hình Random Forest trên bộ dữ liệu `mlc_churn`. Mục tiêu là xác định ảnh hưởng của số lượng fold (k) và độ sâu cây (max_depth) đến độ đo F1-Score.
 
 ## Cấu trúc thư mục
-```text
 .
 ├── data/                   # Bộ dữ liệu gốc (mlc_churn.csv)
 ├── src/
@@ -15,17 +14,17 @@ Dự án thực hiện quy trình thiết kế và phân tích thực nghiệm (
 │   ├── crd/                # Kết quả thí nghiệm 1 (CSV, biểu đồ Tukey, log)
 │   └── crfd/               # Kết quả thí nghiệm 2 (CSV, biểu đồ tương tác, log)
 ├── README.md               # Tài liệu hướng dẫn
-└── Bao_Cao_Thiet_Ke_Thuc_Nghiem_v2.pdf # Báo cáo chi tiết
 
-Nội dung thí nghiệm
+## Nội dung thí nghiệm
 Thí nghiệm 1 (CRD): Đánh giá ảnh hưởng của số lượng fold (k = 3, 5, 10) đối với F1-Score bằng kiểm định Levene, OLS và Tukey HSD.
 
 Thí nghiệm 2 (CRFD): Phân tích tương tác giữa số fold (k) và độ sâu cây (max_depth) thông qua ANOVA 2 chiều và mô hình tuyến tính OLS.
 
-Hướng dẫn tái hiện kết quả
+## Hướng dẫn thí nghiệm
+
 Để tái hiện kết quả, thực hiện các bước sau:
 
-Cài đặt thư viện: ```bash
+Cài đặt thư viện: 
 pip install -r requirements.txt
 
 Thực thi phân tích: Chạy file chính trong thư mục src/:
