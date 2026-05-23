@@ -55,8 +55,8 @@ for k in k_values:
 # Lưu kết quả
 os.makedirs('results/crd', exist_ok=True)
 df_crd = pd.DataFrame(crd_results)
-df_crd.to_csv('results/crd_results.csv', index=False)
-print("Đã lưu file dữ liệu kết quả tại: results/crd_results.csv\n")
+df_crd.to_csv('results/crd/crd_results.csv', index=False)
+print("Đã lưu file dữ liệu kết quả tại: results/crd/crd_results.csv\n")
 
 # 3. PHÂN TÍCH THỐNG KÊ
 print("="*50)
@@ -68,23 +68,31 @@ f1_k3 = df_crd[df_crd['k'] == 3]['f1_score']
 f1_k5 = df_crd[df_crd['k'] == 5]['f1_score']
 f1_k10 = df_crd[df_crd['k'] == 10]['f1_score']
 
+# Chạy các kiểm định
 stat, p_levene = stats.levene(f1_k3, f1_k5, f1_k10)
-print(f"[1] Kiểm định Levene (So sánh phương sai): p-value = {p_levene:.4f}")
-if p_levene > 0.05:
-    print("    -> p-value > 0.05: Phương sai giữa các nhóm k đồng nhất (đủ điều kiện chạy ANOVA/OLS).")
-else:
-    print("    -> p-value < 0.05: Phương sai giữa các nhóm k khác biệt.")
-
-# Phân tích bằng lm() và xuất giá trị trung bình, khoảng tin cậy
-print("\n[2] Bảng phân tích OLS (tương đương lm() trong R):")
 model = ols('f1_score ~ C(k)', data=df_crd).fit()
-# Bảng tables[1] chứa hệ số, sai số, t-stat, p-value và khoảng tin cậy 95%
-print(model.summary().tables[1]) 
-
-# Phân tích Tukey HSD và vẽ đồ thị
-print("\n[3] Bảng phân tích Tukey HSD (So sánh cặp):")
 tukey = pairwise_tukeyhsd(endog=df_crd['f1_score'], groups=df_crd['k'], alpha=0.05)
-print(tukey)
+
+#lưu kết quả phân tích thống kê
+with open('results/crd/statistical_analysis.txt', 'w', encoding='utf-8') as f:
+    f.write("==================================================\n")
+    f.write("KẾT QUẢ PHÂN TÍCH THỐNG KÊ - THÍ NGHIỆM CRD\n")
+    f.write("==================================================\n\n")
+    
+    f.write("[1] KIỂM ĐỊNH LEVENE (So sánh phương sai)\n")
+    f.write(f"p-value = {p_levene:.4f}\n")
+    if p_levene > 0.05:
+        f.write("-> p-value > 0.05: Phương sai giữa các nhóm k đồng nhất.\n\n")
+    else:
+        f.write("-> p-value < 0.05: Phương sai giữa các nhóm k khác biệt.\n\n")
+        
+    f.write("[2] BẢNG PHÂN TÍCH OLS (Giá trị trung bình và Khoảng tin cậy)\n")
+    f.write(str(model.summary().tables[1]) + "\n\n")
+    
+    f.write("[3] BẢNG PHÂN TÍCH TUKEY HSD (So sánh cặp)\n")
+    f.write(str(tukey.summary()) + "\n")
+
+print("Đã lưu các bảng thống kê tại: results/crd/statistical_analysis.txt")
 
 # Vẽ và lưu đồ thị TukeyHSD
 tukey.plot_simultaneous()
