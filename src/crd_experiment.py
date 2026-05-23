@@ -53,7 +53,7 @@ for k in k_values:
         crd_results.append({'k': k, 'f1_score': f1})
 
 # Lưu kết quả
-os.makedirs('results', exist_ok=True)
+os.makedirs('results/crd', exist_ok=True)
 df_crd = pd.DataFrame(crd_results)
 df_crd.to_csv('results/crd_results.csv', index=False)
 print("Đã lưu file dữ liệu kết quả tại: results/crd_results.csv\n")
@@ -90,5 +90,5 @@ print(tukey)
 tukey.plot_simultaneous()
 plt.title("Tukey HSD: So sánh F1-Score theo số fold (k)")
 plt.tight_layout()
-plt.savefig('results/crd_tukey_plot.png', dpi=300)
-print("\nĐã lưu biểu đồ Tukey tại: results/crd_tukey_plot.png")
+plt.savefig('results/crd/crd_tukey_plot.png', dpi=300)
+print("\nĐã lưu biểu đồ Tukey tại: results/crd/crd_tukey_plot.png")
