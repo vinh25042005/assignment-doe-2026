@@ -34,6 +34,6 @@ pip install -r requirements.txt
 Thực thi phân tích: Chạy file chính trong thư mục src/:
 
 ```bash 
-python src/model_analysis.py
+python src/model_M_analysis.py
 ```
 Kết quả sẽ tự động lưu vào các thư mục tương ứng trong results/
